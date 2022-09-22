@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const routes = require('./src/routes/index.js');
 
 const express = require('express');
@@ -17,7 +18,17 @@ server.use((req, res, next) => {
 server.use( '/', routes );
 
 server.listen(3001, () => {
-    console.log('%s listening at 3001');
-  });
+    console.log('listening at 3001');
+  }
+);
 
+const mostrar = () => {
+  const url = 'mongodb://127.0.0.1:27017/midb';
+  mongoose.connect(url)
+    .then(() => console.log('Conectado a mongo'))
+    .catch(err => console.log('Error ' + err));
+
+  // use `await mongoose.connect('mongodb://user:password@localhost:27017/test');` if your database has auth enabled
+};
+mostrar();
 module.exports = server;
